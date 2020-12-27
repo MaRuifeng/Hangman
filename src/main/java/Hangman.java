@@ -23,10 +23,8 @@ public class Hangman
 		misses = new ArrayList<>();
 	}
 
-	public static boolean isFullyGuessed( Character input )
+	public static void check( Character input )
 	{
-		numOfGuesses++;
-
 		if ( charsInWord.contains( input ) )
 		{
 			int index = charsInWord.indexOf( input );
@@ -48,11 +46,6 @@ public class Hangman
 				misses.add( input );
 			}
 		}
-
-		print();
-
-		return isSuccess();
-
 	}
 
 	public static boolean isSuccess()
@@ -74,10 +67,12 @@ public class Hangman
 	public static void play()
 	{
 		Scanner scanner = new Scanner( System.in );
-		String input = scanner.next();
-		while ( !isFullyGuessed( input.charAt( 0 ) ) )
+		while ( !isSuccess() )
 		{
-			input = scanner.next();
+			print();
+			String input = scanner.next();
+			numOfGuesses++;
+			check( input.charAt( 0 ) );
 		}
 	}
 
